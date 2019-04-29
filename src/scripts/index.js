@@ -1,3 +1,3 @@
 import '../styles/index.scss';
+import '../scripts/rooms.js';
 
-console.log('webpack starterkit');

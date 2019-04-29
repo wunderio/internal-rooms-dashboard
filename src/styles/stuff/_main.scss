@@ -1,0 +1,173 @@
+html {
+  height: 100%;
+}
+
+body {
+  background: #F1F5F6;
+  font-family: 'Raleway', sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100% ;
+}
+
+header {
+  background-image: url("../images/header-bg.png");
+  padding: 1rem 0;
+  color: #fff;
+  width: 100%;
+  vertical-align: middle;
+
+  .logo {
+    width: 172px;
+    height: 36px;
+    background-image: url("../images/wunder-rooms.svg");
+    background-size: 100% auto;
+    background-position: left top;
+    background-repeat: no-repeat;
+    margin-top: 8px;
+    display: inline-block;
+    vertical-align: middle;
+
+  }
+
+  .office-selection-holder {
+    display: inline-block;
+    margin-left: 20px;
+    margin-top: 16px;
+    vertical-align: middle;
+
+  }
+
+  .select-date {
+    background: transparent;
+    border: 1px solid #fffff;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    color: #fff;
+    font-weight: 700;
+    padding: .5rem 1rem;
+
+    &:hover {
+      background-color: #E50061;
+    }
+  }
+}
+
+
+
+.view-wrap {
+  //background: lime;
+  flex-grow: 1;
+  overflow: hidden;
+
+  > .row {
+    height: 100%;
+    position: relative;
+  }
+}
+
+
+.col-hours {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+
+  .hour-marker {
+    height: 10%;
+    padding-top: 5px;
+    font-size: 0.8rem;
+    color: #333;
+    width: 100%;
+    position: relative;
+
+    &:before {
+      content: "";
+      display: block;
+      height: 1px;
+      width: 100%;
+      background: #E4E4E4;
+      left: 50px;
+      top: 15px;
+      position: absolute;
+    }
+
+    span {
+      max-width: 40px;
+      text-align: right;
+      display: block;
+    }
+  }
+}
+
+.sub-header {
+  overflow: hidden;
+  padding: 1rem 15px 1rem;
+}
+
+.col-rooms {
+  margin-left: 80px;
+  margin-right: 15px;
+  flex-grow: 1;
+  position: relative;
+  z-index: 10;
+
+  .room-label {
+    text-align: right;
+  }
+
+  .room-title {
+    font-weight: 700;
+    color: #E50061;
+    font-size: 1.6rem;
+
+  }
+
+  .room-properties {
+    list-style: none;
+    padding: 0;
+    color: #021B35;
+
+    li {
+      display: inline-block;
+    }
+
+    .capacity {
+      padding-left: 22px;
+      background-image: url("../images/users.svg");
+      background-size: 16px 16px;
+      background-repeat: no-repeat;
+      background-position: 0 center;
+    }
+  }
+}
+
+.view-wrap .col-rooms .row {
+  height: 100%;
+  margin-top: 15px;
+}
+
+.event-item {
+  background: #fff;
+  padding: 10px;
+  box-shadow: 0 8px 10px 0 rgba(0,0,0,0.03);
+  height: 15%;
+  overflow: hidden;
+  position: absolute;
+  width: calc(100% - 15px);
+
+  .event-timing {
+    font-weight: 600;
+    font-size: 1rem;
+    padding-bottom: 4px;
+  }
+
+  .event-title {
+    font-size: 0.8rem;
+  }
+}
+
+.templates {
+  display: none;
+}
