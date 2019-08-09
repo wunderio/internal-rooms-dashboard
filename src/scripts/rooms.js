@@ -12,10 +12,10 @@ Number.prototype.pad = function(size) {
     return s;
 }
 
-function getData(office_id = 0, date = 20190807) {
+function getData(office_id, date) {
     clearSchedule();
 
-    /*$.get( "http://calendar.karlis.id.lv/calendar.php", { office_id: office_id, date: date }, "jsonapi" )*/
+    // $.get( "http://calendar.karlis.id.lv/calendar.php", { office_id: office_id, date: date }, "jsonapi" )
     $.get( "http://localhost:8888/calendar.php", { office_id: office_id, date: date }, "jsonapi" )
         .done(function( data ) {
             data = $.parseJSON(data);
@@ -30,7 +30,6 @@ function getData(office_id = 0, date = 20190807) {
 
             $(data.rooms).each(function(roomIndex, roomData) {
 
-
                 var roomMarkup = $(".templates .room-template").clone();
                 $(roomMarkup).find(".room-title").text(roomData.title);
                 $(roomMarkup).find(".capacity").text(roomData.capacity);
@@ -43,8 +42,16 @@ function getData(office_id = 0, date = 20190807) {
 
             });
 
-            $(data.events).each(function(roomIndex, eventData) {
+            if (data.hasOwnProperty('dateTextual')) {
+                $("#date_textual").html( data.dateTextual);
+            }
 
+            if (data.hasOwnProperty('timeFromMorning') && data.hasOwnProperty('dateIsToday') && data.dateIsToday) {
+                var timeNowFromMorning = data.timeFromMorning / 3600 * 10;
+                $(".timenow-marker").css( {top: timeNowFromMorning + "%"}).show();
+            }
+
+            $(data.events).each(function(roomIndex, eventData) {
 
                 var eventHeight = eventData.length / 3600 * 10;
                 var eventTop = eventData.timeFromMorning / 3600 * 10;
@@ -85,14 +92,12 @@ function getData(office_id = 0, date = 20190807) {
                 }
 
                 $(eventMarkup).appendTo('[data-roomid="'+eventData.calendarId+'"]');
-
             });
 
         });
 }
 
 $(document).ready(function() {
-
         let searchParams = new URLSearchParams(window.location.search)
         if (searchParams.has('office_id')) {
             var office_id = searchParams.get('office_id');
@@ -101,7 +106,7 @@ $(document).ready(function() {
         }
 
         if (searchParams.has('date')) {
-            var office_id = searchParams.get('date');
+            var date = searchParams.get('date');
         } else {
             var now = new Date();
             console.log(date);
@@ -112,7 +117,7 @@ $(document).ready(function() {
         $(".office-selector").change(function () {
             var office_id = $(".office-selector option:selected").val();
             clearSchedule();
-            getData(office_id);
+            getData(office_id, date);
         });
 }
 );

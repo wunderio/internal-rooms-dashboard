@@ -171,3 +171,25 @@ header {
 .templates {
   display: none;
 }
+
+.timenow-marker {
+  height: 10%;
+  padding-top: 5px;
+  font-size: 0.8rem;
+  color: #a33;
+  width: 100%;
+  position: absolute;
+  display: none;
+
+  &:before {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 100%;
+    background: #E42434;
+    left: 50px;
+    top: 15px;
+    position: absolute;
+  }
+
+}
