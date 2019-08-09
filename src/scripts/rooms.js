@@ -13,13 +13,12 @@ Number.prototype.pad = function(size) {
 }
 
 function getData(office_id, date) {
-    clearSchedule();
 
-    // $.get( "http://calendar.karlis.id.lv/calendar.php", { office_id: office_id, date: date }, "jsonapi" )
-    $.get( "http://localhost:8888/calendar.php", { office_id: office_id, date: date }, "jsonapi" )
+    $.get( "http://calendar.karlis.id.lv/calendar.php", { office_id: office_id, date: date }, "jsonapi" )
+    // $.get( "http://localhost:8888/calendar.php", { office_id: office_id, date: date }, "jsonapi" )
         .done(function( data ) {
             data = $.parseJSON(data);
-
+            clearSchedule();
 
             $(data.offices).each(function(offIn, offName) {
                 $(".office-selector").append('<option value="'+offIn+'">' +offName.title + '</option>')
@@ -93,8 +92,8 @@ function getData(office_id, date) {
 
                 $(eventMarkup).appendTo('[data-roomid="'+eventData.calendarId+'"]');
             });
-
-        });
+        }
+    );
 }
 
 $(document).ready(function() {
@@ -115,9 +114,11 @@ $(document).ready(function() {
 
         getData(office_id, date);
         $(".office-selector").change(function () {
-            var office_id = $(".office-selector option:selected").val();
+            office_id = $(".office-selector option:selected").val();
             clearSchedule();
             getData(office_id, date);
         });
-}
+
+        setInterval(function() {getData(office_id, date);}, 59000);
+    }
 );
